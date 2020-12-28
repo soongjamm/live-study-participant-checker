@@ -3,6 +3,7 @@ import org.kohsuke.github.GHIssueComment;
 import org.kohsuke.github.GHUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +14,11 @@ public class ParticipantRepository {
 
     public static void updateLatest() {
         IssueRepository.getIssues()
-                .forEach((week, issue) -> {
+                .entrySet()
+                .parallelStream()
+                .forEach((issue) -> {
                     try {
-                        addParticipantByComments(issue.getComments());
+                        addParticipantByComments(issue.getValue().getComments());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -27,7 +30,7 @@ public class ParticipantRepository {
     }
 
     private static void addParticipantByComments(List<GHIssueComment> comments) {
-        comments.stream()
+        comments.parallelStream()
                 .forEach(comment -> {
                     try {
                         GHUser gitHubUser = comment.getUser();
@@ -39,7 +42,7 @@ public class ParticipantRepository {
     }
 
     public static void showParticipant() {
-        participants.forEach((x,y) -> System.out.println(x));
+        participants.forEach((x, y) -> System.out.println(x));
     }
 
 }
