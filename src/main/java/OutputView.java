@@ -9,7 +9,7 @@ public class OutputView {
         nicknames.stream()
                 .forEach(nickname -> {
                     Float participationRate = ParticipantRepository
-                            .findParticipantByNickname(nickname).getParticipationRate();
+                            .findParticipantByNicknameElseCreate(nickname).getParticipationRate();
                     System.out.println(String.format("%-25s : %.2f %%", nickname + "님의 참여율", participationRate));
                 });
     }

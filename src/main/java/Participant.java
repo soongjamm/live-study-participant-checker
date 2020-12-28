@@ -7,7 +7,7 @@ public class Participant {
 
     private List<GHIssue> participatedIssue = new ArrayList<>();
 
-    public void participate(GHIssue issue) {
+    public void participateStudy(GHIssue issue) {
         if (!participatedIssue.contains(issue)) {
             participatedIssue.add(issue);
         }
@@ -17,7 +17,4 @@ public class Participant {
         return IssueRepository.getIssues().size() / participatedIssue.size();
     }
 
-    public List<GHIssue> getIssues() {
-        return participatedIssue;
-    }
 }

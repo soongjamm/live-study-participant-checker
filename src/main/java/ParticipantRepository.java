@@ -34,8 +34,8 @@ public class ParticipantRepository {
                 .forEach(comment -> {
                     try {
                         String nickname = comment.getUser().getLogin();
-                        Participant participant = findParticipantByNickname(nickname);
-                        participant.participate(comment.getParent());
+                        Participant participant = findParticipantByNicknameElseCreate(nickname);
+                        participant.participateStudy(comment.getParent());
                         addParticipant(nickname, participant);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -43,7 +43,7 @@ public class ParticipantRepository {
                 });
     }
 
-    public static Participant findParticipantByNickname(String nickname) {
+    public static Participant findParticipantByNicknameElseCreate(String nickname) {
         if (participants.containsKey(nickname)) {
             return participants.get(nickname);
         }
