@@ -8,8 +8,9 @@ public class OutputView {
         Collections.sort(nicknames);
         nicknames.stream()
                 .forEach(nickname -> {
-                    Float participationRate = ParticipantRepository.findParticipantByNickname(nickname).getParticipationRate();
-                    System.out.println(String.format("%-25s : %.2f %%", nickname + "님의 참여율", participationRate ));
+                    Float participationRate = ParticipantRepository
+                            .findParticipantByNickname(nickname).getParticipationRate();
+                    System.out.println(String.format("%-25s : %.2f %%", nickname + "님의 참여율", participationRate));
                 });
     }
 

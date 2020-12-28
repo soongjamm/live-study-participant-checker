@@ -20,7 +20,4 @@ public class IssueRepository {
         return issues;
     }
 
-    public static void showParticipant() {
-        issues.forEach((x,y) -> System.out.println(x));
-    }
 }
