@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class IssueRepository {
-    public static Map<Integer, GHIssue> issues = new HashMap<>();
+    private static Map<Integer, GHIssue> issues = new HashMap<>();
 
     public static void addIssue(int week, GHIssue Issue) {
         issues.put(week, Issue);
@@ -16,4 +16,11 @@ public class IssueRepository {
                 .forEach(issue -> addIssue(issue.getNumber(), issue));
     }
 
+    public static Map<Integer, GHIssue> getIssues() {
+        return issues;
+    }
+
+    public static void showParticipant() {
+        issues.forEach((x,y) -> System.out.println(x));
+    }
 }

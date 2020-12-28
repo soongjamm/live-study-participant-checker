@@ -13,6 +13,8 @@ public class Controller {
     public void run() throws IOException {
         connectToGitHub();
         loadIssues();
+        updateParticipant();
+//        ParticipantRepository.showParticipant();
     }
 
     private void connectToGitHub() throws IOException {
@@ -23,5 +25,11 @@ public class Controller {
         List<GHIssue> issues = github.getRepository(Properties.TARGET_REPOSITORY).getIssues(GHIssueState.ALL);
         IssueRepository.addIssueListToMap(issues);
     }
+
+    private void updateParticipant() {
+        ParticipantRepository.updateLatest();
+    }
+
+
 
 }
