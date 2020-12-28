@@ -7,8 +7,8 @@ import java.util.Map;
 public class IssueRepository {
     private static Map<Integer, GHIssue> issues = new HashMap<>();
 
-    public static void addIssue(int week, GHIssue Issue) {
-        issues.put(week, Issue);
+    public static void addIssue(int week, GHIssue issue) {
+        issues.put(week, issue);
     }
 
     public static void addIssueListToMap(List<GHIssue> issues) {

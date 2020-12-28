@@ -29,3 +29,6 @@
 
 #### gradle에서 junit5 실행하기
 https://unhosted.tistory.com/41 참고
+
+#### Map을 List로 바꾸는 방법
+https://codechacha.com/ko/java-convert-map-to-list/

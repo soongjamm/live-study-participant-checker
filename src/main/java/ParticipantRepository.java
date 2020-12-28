@@ -18,6 +18,7 @@ public class ParticipantRepository {
                 .parallelStream()
                 .forEach((issue) -> {
                     try {
+                        OutputView.updateNameByCommentsInProgressMessage(issue.getValue().getNumber());
                         addParticipantByComments(issue.getValue().getComments());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -41,8 +42,8 @@ public class ParticipantRepository {
                 });
     }
 
-    public static void showParticipant() {
-        participants.forEach((x, y) -> System.out.println(x));
+    public static List<String> getParticipantsName() {
+        return new ArrayList<>(participants.keySet());
     }
 
 }

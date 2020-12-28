@@ -14,7 +14,7 @@ public class Controller {
         connectToGitHub();
         loadIssues();
         updateParticipant();
-//        ParticipantRepository.showParticipant();
+        OutputView.printParticipants();
     }
 
     private void connectToGitHub() throws IOException {
