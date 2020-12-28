@@ -1,6 +1,5 @@
 
 import org.kohsuke.github.GHIssueComment;
-import org.kohsuke.github.GHUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.Map;
 
 public class ParticipantRepository {
 
-    static private Map<String, GHUser> participants = new HashMap<>();
+    static private Map<String, Participant> participants = new HashMap<>();
 
     public static void updateLatest() {
         IssueRepository.getIssues()
@@ -26,7 +25,7 @@ public class ParticipantRepository {
                 });
     }
 
-    private static void addParticipant(String nickname, GHUser participant) {
+    private static void addParticipant(String nickname, Participant participant) {
         participants.put(nickname, participant);
     }
 
@@ -34,12 +33,21 @@ public class ParticipantRepository {
         comments.parallelStream()
                 .forEach(comment -> {
                     try {
-                        GHUser gitHubUser = comment.getUser();
-                        addParticipant(gitHubUser.getLogin(), gitHubUser);
+                        String nickname = comment.getUser().getLogin();
+                        Participant participant = findParticipantByNickname(nickname);
+                        participant.participate(comment.getParent());
+                        addParticipant(nickname, participant);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 });
+    }
+
+    private static Participant findParticipantByNickname(String nickname) {
+        if (participants.containsKey(nickname)) {
+            return participants.get(nickname);
+        }
+        return new Participant();
     }
 
     public static List<String> getParticipantsName() {
