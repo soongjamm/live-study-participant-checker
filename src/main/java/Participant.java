@@ -7,10 +7,14 @@ public class Participant {
 
     private List<GHIssue> participatedIssue = new ArrayList<>();
 
-    public void participate(GHIssue issue){
+    public void participate(GHIssue issue) {
         if (!participatedIssue.contains(issue)) {
             participatedIssue.add(issue);
         }
+    }
+
+    public float getParticipationRate() {
+        return IssueRepository.getIssues().size() / participatedIssue.size();
     }
 
     public List<GHIssue> getIssues() {

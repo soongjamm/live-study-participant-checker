@@ -43,7 +43,7 @@ public class ParticipantRepository {
                 });
     }
 
-    private static Participant findParticipantByNickname(String nickname) {
+    public static Participant findParticipantByNickname(String nickname) {
         if (participants.containsKey(nickname)) {
             return participants.get(nickname);
         }

@@ -1,18 +1,20 @@
-import org.kohsuke.github.GHIssue;
 
 import java.util.Collections;
 import java.util.List;
 
 public class OutputView {
     public static void printParticipants() {
-        List<String> names = ParticipantRepository.getParticipantsName();
-        Collections.sort(names);
-        names.stream()
-                .forEach(name -> System.out.println(name));
+        List<String> nicknames = ParticipantRepository.getParticipantsName();
+        Collections.sort(nicknames);
+        nicknames.stream()
+                .forEach(nickname -> {
+                    Float participationRate = ParticipantRepository.findParticipantByNickname(nickname).getParticipationRate();
+                    System.out.println(String.format("%s님의 참여률 \t\t\t: %.2f %%", nickname, participationRate ));
+                });
     }
 
-    public static void updateNameByCommentsInProgressMessage(int number) {
-        System.out.println(String.format("%d주차 이슈의 코멘트를 처리하는 중입니다.", number));
+    public static void updateNameByCommentsInProgressMessage(int issueNumber) {
+        System.out.println(String.format("%d주차 이슈의 코멘트를 처리하는 중입니다.", issueNumber));
     }
 
 }
