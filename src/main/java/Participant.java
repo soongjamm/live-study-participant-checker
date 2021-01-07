@@ -14,6 +14,7 @@ public class Participant {
     }
 
     public float getParticipationRate() {
+        System.out.println(IssueRepository.getIssues().size() + " .. " + participatedIssue.size());
         return IssueRepository.getIssues().size() / participatedIssue.size();
     }
 
