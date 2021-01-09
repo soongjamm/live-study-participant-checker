@@ -1,3 +1,5 @@
+import org.kohsuke.github.GHIssue;
+
 public class Study {
     private int week;
     private int season;

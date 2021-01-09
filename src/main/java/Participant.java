@@ -1,21 +1,52 @@
 import org.kohsuke.github.GHIssue;
+import org.kohsuke.github.GHUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Participant {
+public class Participant implements Comparable {
 
-    private List<GHIssue> participatedIssue = new ArrayList<>();
+    private List<GHIssue> participatedStudy = new ArrayList<>();
+    private GHUser ghUser;
 
-    public void participateStudy(GHIssue issue) {
-        if (!participatedIssue.contains(issue)) {
-            participatedIssue.add(issue);
+    public Participant(GHUser ghUser) {
+        this.ghUser = ghUser;
+    }
+
+    public String getNickname() {
+        return ghUser.getLogin();
+    }
+
+    public void participateStudy(GHIssue aStudy) {
+        if (!participatedStudy.contains(aStudy)) {
+            participatedStudy.add(aStudy);
         }
     }
 
-    public float getParticipationRate() {
-        System.out.println(IssueRepository.getIssues().size() + " .. " + participatedIssue.size());
-        return IssueRepository.getIssues().size() / participatedIssue.size();
+    public List<GHIssue> getParticipatedStudyList() {
+        return participatedStudy;
     }
+
+    @Override
+    public int hashCode() {
+        return (int) ghUser.getId();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        Participant other = (Participant) object;
+        return ghUser.getLogin().equals(other.ghUser.getLogin());
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Participant other = (Participant) o;
+        return ghUser.getLogin().compareTo(other.ghUser.getLogin());
+    }
+
+    public double getParticipationRate() {
+        return participatedStudy.size() / IssueRepository.getIssues().size() * 100;
+    }
+
 
 }

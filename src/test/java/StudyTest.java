@@ -20,4 +20,9 @@ class StudyTest {
 
     }
 
+    @Test
+    void studyRepositoryTest() {
+
+    }
+
 }

@@ -13,8 +13,8 @@ public class Application {
 
         try {
             initialize();
-            IssueRepository.issueListToHashMap(issues);
-            ParticipantRepository.updateLatest();
+            ParticipantRepository.addAllParticipant(issues);
+//            IssueRepository.addIssues(issues);
             OutputView.printParticipants();
         } catch (Exception e) {
             e.printStackTrace();

@@ -27,7 +27,7 @@ class IssueRepositoryTest {
     @Test
     @DisplayName("Issue 리스트를 IssueRepository에 HashSet으로 저장하는 테스트")
     void putIssuesTestIntoRepoTest() throws IOException {
-        assertTrue(IssueRepository.issueListToHashMap(issues));
+        assertTrue(IssueRepository.addIssues(issues));
         assertFalse(IssueRepository.getIssues().isEmpty());
     }
 
@@ -37,7 +37,7 @@ class IssueRepositoryTest {
     void getIssuesBySeasonTest() throws IOException {
         GHLabel season2Label = repository.getLabel("시즌2");
 
-        IssueRepository.issueListToHashMap(issues);
+        IssueRepository.addIssues(issues);
 
         List<GHIssue> season2Issues = IssueRepository.getIssuesBySeason(2);
         assertTrue(
@@ -59,7 +59,7 @@ class IssueRepositoryTest {
         int week = 10;
         int season = 1;
 
-        IssueRepository.issueListToHashMap(issues);
+        IssueRepository.addIssues(issues);
 
         GHIssue foundIssue = IssueRepository.getIssueBySeasonAndWeek(week, season);
         assertEquals("10주차 과제: 멀티쓰레드 프로그래밍", foundIssue.getTitle());

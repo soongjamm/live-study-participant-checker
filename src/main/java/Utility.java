@@ -3,6 +3,7 @@ import org.kohsuke.github.GHLabel;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class Utility {
     public static int parseWeek(String title) {
@@ -12,13 +13,17 @@ public class Utility {
             String weekString = (title.split("\\D+"))[0];
             return Integer.parseInt(weekString);
         }
-
-        throw new NullPointerException("몇 주차 정보가 존재하지 않습니다. title : " + title);
+        return -1;
+//        throw new NullPointerException("몇 주차 정보가 존재하지 않습니다. title : " + title + "빠이");
     }
 
     public static int parseSeason(Collection<GHLabel> labelsCollection) {
         List<GHLabel> labels = (List<GHLabel>) labelsCollection;
-        String seasonLabelString = getSeasonLabel(labels).getName();
+        GHLabel label = getSeasonLabel(labels);
+        if (label == null) {
+            return -1;
+        }
+        String seasonLabelString = label.getName();
         String seasonString = Arrays.asList(seasonLabelString.split("\\D+"))
                 .stream()
                 .filter(str -> !str.equals(""))
@@ -32,9 +37,12 @@ public class Utility {
         List<GHLabel> labels = (List<GHLabel>) labelsCollection;
         String regExp = "시즌(\\d+)";
 
-        return labels.stream()
+        Optional o =  labels.stream()
                 .filter(label -> label.getName().matches(regExp))
-                .findFirst()
-                .orElseThrow(() -> new NullPointerException("시즌 라벨이 존재하지 않습니다."));
+                .findFirst();
+        if (o.isPresent()) {
+            return (GHLabel) o.get();
+        }
+        return null;
     }
 }

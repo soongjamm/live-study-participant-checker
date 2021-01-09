@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IssueRepositoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-01-07T15:17:42" hostname="gimsungjaem.local" time="1.98">
-  <properties/>
-  <testcase name="createParticipantTest()" classname="IssueRepositoryTest" time="1.98"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

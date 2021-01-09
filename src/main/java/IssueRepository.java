@@ -9,23 +9,31 @@ import java.util.stream.Collectors;
 public class IssueRepository {
     private static Map<Study, GHIssue> issues = new HashMap<>();
 
-    public static void addIssue(Study study, GHIssue issue) {
-        issues.put(study, issue);
+    public static void addIssue(GHIssue issue) {
+        int week;
+        int season;
+        try {
+            week = Utility.parseWeek(issue.getTitle());
+            season = Utility.parseSeason(issue.getLabels());
+            if (week == -1 || season == -1) {
+                return;
+            }
+            Study study = new Study(week, season);
+            issues.put(study, issue);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public static Map<Study, GHIssue> getIssues() {
         return issues;
     }
 
-    public static boolean issueListToHashMap(List<GHIssue> issues) {
+    public static boolean addIssues(List<GHIssue> issues) {
         issues.stream()
                 .forEach(issue -> {
-                    try {
-                        Study study = new Study(Utility.parseWeek(issue.getTitle()), Utility.parseSeason(issue.getLabels()));
-                        addIssue(study, issue);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        addIssue(issue);
                 });
         return true;
     }
